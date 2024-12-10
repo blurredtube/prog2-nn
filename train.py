@@ -54,11 +54,44 @@ print(f'test accuracy: {acc_test*100:.2f}%')
 
 n_epochs = 5 
 
+loss_train_history = []
+loss_test_history = []
+acc_train_history =[]
+acc_test_history = []
+
 for k in range(n_epochs): 
     print(f'epoch {k+1}/{n_epochs}', end=': ',flush=True) 
     
+    time_start = time.time()
     loss_train = models.train(model, dataloader_train, loss_fn, optimizer) 
-    print(f'train loss: {loss_train}') 
+    time_end = time.time()
+    loss_train_history.append(model, dataloader_train, loss_fn, optimizer)
+    print(f'train loss: {loss_train:.3f} ({time_end-time_start}s)', end=',') 
 
     loss_test = models.test_accuracy(model, dataloader_test, loss_fn) 
+    loss_test_history.append(model, dataloader_test, loss_fn)
     print(f'test loss: {loss_test}')
+
+    acc_train = models.test_accuracy(model, dataloader_train)
+    acc_train_history.append(acc_train)
+    print(f'train accuracy: {loss_train*100:.3f}%', end=',') 
+
+    acc_test = models.test_accuracy(model, dataloader_test)
+    acc_test_history.append(acc_test)
+    print(f'test accuracy: {loss_test*100:.3f}%') 
+
+    plt.plot(acc_train_history, label='train')
+    plt.plot(acc_test_history, label='test')
+    plt.xlabel('epochs')
+    plt.ylabel('accuracy')
+    plt. legend()
+    plt.grid()
+    plt.show()
+
+    plt.plot(loss_train_history, label='train')
+    plt.plot(loss_test_history, label='test')
+    plt.xlabel('epochs')
+    plt.ylabel('loss')
+    plt. legend()
+    plt.grid()
+    plt.show()
