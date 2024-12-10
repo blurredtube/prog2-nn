@@ -60,5 +60,5 @@ for k in range(n_epochs):
     loss_train = models.train(model, dataloader_train, loss_fn, optimizer) 
     print(f'train loss: {loss_train}') 
 
-    acc_test = models.test_accuracy(model, dataloader_test) 
-    print(f'test accuracy: {acc_test*100:.2f}%')
+    loss_test = models.test_accuracy(model, dataloader_test, loss_fn) 
+    print(f'test loss: {loss_test}')
