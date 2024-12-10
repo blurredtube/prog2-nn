@@ -70,7 +70,7 @@ for k in range(n_epochs):
 
     loss_test = models.test_accuracy(model, dataloader_test, loss_fn) 
     loss_test_history.append(model, dataloader_test, loss_fn)
-    print(f'test loss: {loss_test}')
+    print(f'test loss: {loss_test:.3f}', end=',')
 
     acc_train = models.test_accuracy(model, dataloader_train)
     acc_train_history.append(acc_train)
